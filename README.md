@@ -1,12 +1,12 @@
 # Trial Class Appointment Booking System
 
-A production-grade, full-stack trial-class appointment booking system built for an online education platform. The system handles timezone conversions across global regions (US, UK, India, etc.), accurate Daylight Saving Time (DST) transitions, concurrent double-booking protection using database transactions, and fair mentor allocation.
+A production-oriented, full-stack trial-class appointment booking system built for an online education platform. The system handles timezone conversions across global regions (US, UK, India, etc.), accurate Daylight Saving Time (DST) transitions, concurrent double-booking protection using database transactions, and fair mentor allocation.
 
 ---
 
 ## Key Features
 
-- **Strict UTC Timestamp Storage**: All appointment start/end times are stored in UTC as ISO 8601 strings in the database.
+- **Strict UTC Timestamp Storage**: All appointment start/end times are persisted as UTC timestamps in PostgreSQL and serialized as ISO 8601 strings at the API boundary.
 - **IANA Timezone Awareness**: User and mentor timezones are stored as standard IANA timezone identifiers (e.g. `America/New_York`, `Europe/London`, `Asia/Kolkata`). Fixed offsets like `UTC+5:30` are strictly avoided.
 - **Robust DST Handling**: Uses Luxon to dynamically resolve Daylight Saving Time offsets (e.g., EDT vs EST, BST vs GMT) based on appointment dates.
 - **Mentor-Local Calendar Day Limits**: Enforces a maximum limit of **2 trial classes per mentor per mentor-local calendar day**.
@@ -51,7 +51,7 @@ A production-grade, full-stack trial-class appointment booking system built for 
 The repository follows a monorepo workspace design with clean layered architecture separating routes, controllers, business services, repositories, and utilities.
 
 ```
-codeyoung-trial-booking/
+Codeyoung-trial-class-booking/
 ├── docker-compose.yml         # PostgreSQL Container configuration
 ├── package.json               # Monorepo root package configuration
 ├── .env.example               # Environment variables template
@@ -90,7 +90,7 @@ codeyoung-trial-booking/
 ## Core Domain & Timezone Logic
 
 ### 1. UTC Source of Truth
-Appointment start times are converted to UTC `JS Date` objects immediately upon request validation. All persistence in PostgreSQL happens in UTC.
+Appointment start times are converted to UTC `JS Date` objects immediately upon request validation. All appointment start/end times are persisted as UTC timestamps in PostgreSQL and serialized as ISO 8601 strings at the API boundary.
 
 ### 2. Mentor-Local Calendar Day Calculation
 The 2-booking limit per day is calculated against the **mentor's local calendar day**, NOT the UTC day or parent day.
@@ -133,7 +133,7 @@ Booking creation executes within a PostgreSQL **SERIALIZABLE** transaction using
       "startTimeUtc": "2026-10-03T13:30:00Z"
     }
     ```
-  - *Response (HTTP 201)* (Example UUID shown; actual UUID will vary):
+  - *Response (HTTP 201)* (Example UUID shown; actual UUID is dynamically generated):
     ```json
     {
       "success": true,
@@ -177,8 +177,8 @@ Booking creation executes within a PostgreSQL **SERIALIZABLE** transaction using
 
 ### Step 1: Clone Repository
 ```bash
-git clone <repository-url>
-cd codeyoung-trial-booking
+git clone https://github.com/PreranRai/Codeyoung-trial-class-booking.git
+cd Codeyoung-trial-class-booking
 ```
 
 ### Step 2: Environment Setup
