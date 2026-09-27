@@ -3,9 +3,9 @@ services:
     image: postgres:15-alpine
     container_name: codeyoung_postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: REMOVED_SECRET
-      POSTGRES_DB: codeyoung_booking
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-codeyoung_booking}
     ports:
       - '5432:5432'
     volumes:
