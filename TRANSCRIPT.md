@@ -7,7 +7,7 @@
 **AI Assistant:** ChatGPT / AI-assisted development  
 **Date:** September 2026
 
-> Note: This document is a reconstructed, readable transcript of the AI-assisted development process and major engineering decisions. It is not a raw transcript.jsonl export.
+> **Transcript authenticity note:** This document is a reconstructed, readable record of the AI-assisted development sessions used during this project. It preserves the prompts, engineering decisions, implementation discussions, debugging steps, validation activities, and final verification stages that materially influenced the project. It is not presented as a raw platform-exported conversation file. No conversations, implementation work, test results, or technical decisions have been intentionally fabricated.
 
 ---
 
