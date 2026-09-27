@@ -187,6 +187,11 @@ Copy the example environment file:
 cp .env.example .env
 ```
 
+The application and Docker Compose follow a secure environment-variable workflow:
+- PostgreSQL credentials (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`) in `docker-compose.yml` are loaded dynamically from environment variables, falling back to safe local development defaults (`postgres` / `postgres`).
+- Sensitive production credentials are never hardcoded inside repository source code or configuration files.
+- `.env` is ignored by Git to ensure local secrets are kept secure. You can customize `.env` for your local or production deployment.
+
 ### Step 3: Start PostgreSQL with Docker Compose
 ```bash
 docker compose up -d
